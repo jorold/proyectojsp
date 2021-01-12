@@ -14,7 +14,15 @@
     <body>
         <h1>Hello World!</h1>
         <%
-            
+            //código java dentro de un servlet
+            //out nos permite escribir código java dentro de la página
+            out.println("ESto es Java!!!");
+            out.println("<h1>Título de Java</h1>");
+            String texto = "Soy un texto escrito en Java";            
         %>
+        <p>Podemos escribir código Java entre etiquetas HTML</p>
+        <h2 style="color:blue">
+            <%=texto%>
+        </h2>
     </body>
 </html>
