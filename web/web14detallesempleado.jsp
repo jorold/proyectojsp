@@ -50,9 +50,11 @@ Connection cn = DriverManager.getConnection(cadena, "system", "oracle");
                         String of = rs.getString("OFICIO");
                         String sal = rs.getString("SALARIO");  
                         %>
-                        <h1><%=ap%></h1>
-                        <h1><%=of%></h1>
-                        <h1><%=sal%></h1>
+                        <ul>
+                        <li><%=ap%></li>
+                        <li><%=of%></li>
+                        <li><%=sal%></li>
+                        </ul>
                         <%
                         } else {
                         %>
