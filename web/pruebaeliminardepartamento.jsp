@@ -1,5 +1,3 @@
-
-
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -20,42 +18,34 @@ Connection cn = DriverManager.getConnection(cadena, "system", "oracle");
     </head>
     <body>
         <%
-          String dato = request.getParameter("cajanumero");
-          String nombre = request.getParameter("cajanombre");
-          String localidad = request.getParameter("cajaciudad");
-          int insertados = -1;
-          if (dato != null){
-          int numero = Integer.parseInt(dato);
-          String sqlinsert = "insert into dept values (?,?,?)";
-          PreparedStatement pst = cn.prepareStatement(sqlinsert);
-          pst.setInt(1, numero);
-          pst.setString(2, nombre);
-          pst.setString(3, localidad);
-          insertados = pst.executeUpdate();
-          }
-        %>
-        <h1>Creación departamentos</h1>
-        <form method="post">
-            <label>Número</label>
-            <input type="number" name="cajanumero" required/><br/>
-            <label>Nombre</label>
-            <input type="text" name="cajanombre" required/><br/>
-            <label>Ciudad</label>
-            <input style="margin-left: 6.5px" type ="text" name="cajaciudad" required/><br/>
-            <button style="margin-top: 10px; margin-bottom: 10px" type="submit">Insertar</button>
-        </form>
-        <%
+        String dato = request.getParameter("cajanumero");
+        int eliminados = 0;
         if (dato != null){
-            %>
-            <h1 style="color:blue">Insertados: <%=insertados%></h1>
-            <%
+        int numero = Integer.parseInt(dato);
+        String sqldelete = "delete from dept where dept_no =?";
+        PreparedStatement pst = cn.prepareStatement(sqldelete);
+        pst.setInt(1, numero);
+        eliminados = pst.executeUpdate();
         }
         %>
-        <table border="2">
+        <h1>Eliminar departamento</h1>
+        <form method="post">
+            <label>Número departamento</label>
+            <input type="number" name="cajanumero"/>
+            <button type="submit">Eliminar</button>
+        </form>
+        <%
+            if (dato != null){
+                %>
+                <h1 style="color:red">Departamentos eliminados: <%=eliminados%></h1>
+                <%
+            }
+        %>
+        <table border="2" style="margin-top: 10px">
             <thead>
-            <th>Número</th>
-            <th>Nombre</th>
-            <th>Localidad</th>
+                <th>Número</th>
+                <th>Nombre</th>
+                <th>Localidad</th>
             </thead>
             <tbody>
                 <%
