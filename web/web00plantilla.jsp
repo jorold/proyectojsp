@@ -1,3 +1,5 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="oracle.jdbc.OracleDriver"%>
 <%@page import="java.sql.DriverManager"%>
