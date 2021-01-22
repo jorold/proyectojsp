@@ -1,4 +1,12 @@
+<%@page import="java.sql.Connection"%>
+<%@page import="oracle.jdbc.OracleDriver"%>
+<%@page import="java.sql.DriverManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+DriverManager.registerDriver(new OracleDriver());
+String cadena = "jdbc:oracle:thin:@localhost:1521:xe";
+Connection cn = DriverManager.getConnection(cadena, "system", "oracle");
+%>
 <!DOCTYPE html>
 <html>
     <head>
