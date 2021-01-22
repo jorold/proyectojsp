@@ -31,9 +31,9 @@ Connection cn =
                     //VAMOS A RECIBIR UN ID Y LO ALMACENAMOS EN 
                     //UN ARRAYLIST AL RECIBIRLO
                     String dato = request.getParameter("idempleado");
+                    ArrayList<Integer> empleados = (ArrayList)session.getAttribute("EMPLEADOS");
                     if (dato != null){
-                        int idempleado = Integer.parseInt(dato);
-                        ArrayList<Integer> empleados;
+                        int idempleado = Integer.parseInt(dato);                        
                         //PREGUNTAMOS SI YA TENEMOS EMPLEADOS ALMACENADOS
                         if (session.getAttribute("EMPLEADOS") != null){
                             //RECUPERAMOS LOS EMPLEADOS
@@ -60,13 +60,36 @@ Connection cn =
                         while (rs.next()){
                             String ape = rs.getString("APELLIDO");
                             String empno = rs.getString("EMP_NO");
-                            %>
-                            <li class="list-group-item">
-                                <a href="web33almacenarempleados.jsp?idempleado=<%=empno%>">
-                                    Almacenar <%=ape%>
-                                </a>
-                            </li>
-                            <%
+                                if (empleados == null){
+                                //no hay nada en session así que dibujamos los enlaces
+                                %>
+                                    <li class="list-group-item">
+                                        <a href="web33almacenarempleados.jsp?idempleado=<%=empno%>">
+                                            Almacenar <%=ape%>
+                                        </a>
+                                    </li>
+                                <%
+                                }else{
+                                //hay que preguntar si ya existe el empleado en la sesión
+                                    if(empleados.contains (Integer.parseInt(empno))){
+                                    //ya está en la lista, hacemos un dibujo ok
+                                %>
+                                    <li class="list-group-item list-group-item-warning">
+                                        <%=ape.toUpperCase()%>
+                                        <img src="images/ok.png" style="width: 25px; height: 25px"
+                                    </li>
+                                <%
+                                    }else{
+                                    //no está en la lista, dibujamos el enlace
+                                        %>
+                                        <li class="list-group-item">
+                                            <a href="web33almacenarempleados.jsp?idempleado=<%=empno%>">
+                                                Almacenar <%=ape%>
+                                            </a>
+                                        </li>
+                                        <%
+                                    }
+                                }                            
                         }
                         rs.close();
                         cn.close();
